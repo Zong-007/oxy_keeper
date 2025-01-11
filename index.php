@@ -131,7 +131,7 @@
                         <div class="card-body1">
                             <div class="center card-title-wrapper">
                                 <div class="  card-title "> 
-                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 50px; height: auto;">
+                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 40px; height: auto;">
                                     
                                 </div>
                                 <div class=" center ps-3 card-title-wrapper end">
