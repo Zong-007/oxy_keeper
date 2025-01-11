@@ -1,0 +1,101 @@
+.card-title-wrapper {
+    display: flex;
+    justify-content: center; /* จัดกึ่งกลางแนวนอน */
+    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+    height: 50px; /* ปรับความสูงตามต้องการ */
+    
+  }
+  .end{
+    display: block;
+  }
+  
+  .card-title {
+    position: absolute; /* ใช้ absolute positioning */
+    top: 0; /* ชิดขอบด้านบน */
+    left: 0; /* ชิดขอบด้านซ้าย */
+    margin: 0; /* ลบ margin เริ่มต้นของ h5 */
+    padding: 10px; /* เพิ่ม padding เพื่อความสวยงาม */
+    font-size: 1.5rem; /* กำหนดขนาดตัวอักษร */
+    color: #000; /* สีของตัวอักษร */
+  }
+  
+  .card-title-wrapper span {
+    margin-top: 5px; /* เพิ่มระยะห่างระหว่าง h6 กับ div */
+    
+  }
+
+  .text-V{
+    font-size: 4rem; /* กำหนดขนาดตัวอักษร */
+  }
+
+  .text-Vbpm{
+    font-size: 2.5rem; /* กำหนดขนาดตัวอักษร */
+  }
+  
+  .text-normal{
+    font-size: 1rem; /* กำหนดขนาดตัวอักษร */
+  }
+  
+  .status-box {
+    display: inline-block;
+    background-color: #4CAF50; /* สีเขียว */
+    color: white;
+    padding: 5px 10px; /* ระยะห่างด้านใน */
+    border-radius: 20px; /* ความโค้งของขอบ */
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* เงา */
+  }
+  
+  .logo_position {
+    position: relative;
+    right: 20%;
+  }
+  
+  .d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.gap-3 {
+    gap: 20px; /* ระยะห่างระหว่างการ์ดในแนวตั้ง */
+}
+
+.card {
+    border: 1px solid #ddd; /* กำหนดเส้นกรอบ */
+    border-radius: 10px;
+    height: auto; /* ปรับขนาดให้เหมาะสม */
+}
+
+.square {
+  background-color: #fff; /* พื้นหลังสีขาว */
+  border: 1px solid #e0e0e0; /* เส้นขอบสีเทาอ่อน */
+  border-radius: 10px; /* มุมโค้งมน */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เงา */
+  padding: 20px; /* ระยะห่างด้านใน */
+  transition: transform 0.2s, box-shadow 0.2s; /* เพิ่มเอฟเฟกต์เวลา hover */
+}
+
+.button {
+  display: inline-block;
+  padding: 5px 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000; /* สีตัวอักษร */
+  background-color: #00fffb; /* สีพื้นหลัง */
+  border: none;
+  border-radius: 15px; /* มุมมน */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form-right {
+  display: flex;        /* ใช้ Flexbox สำหรับจัดตำแหน่ง */
+  justify-content: end; /* จัดตำแหน่งไปทางขวาสุด */
+  margin-top: 10px; 
+}
