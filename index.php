@@ -131,7 +131,7 @@
                         <div class="card-body1">
                             <div class="center card-title-wrapper">
                                 <div class=" center ps-3 card-title-wrapper end">
-                                  <span class="text-Vbpm">yesterday</span>
+                                  <span class="text-Vbpm1">yesterday</span>
                                 </div>
                             </div>
                             
