@@ -132,7 +132,10 @@
                             <div class="center card-title-wrapper">
                                 <div class="  card-title "> 
                                     <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 40px; height: auto;">
-                                    98
+                                    
+                                </div>
+                                <div class=" center ps-3 card-title-wrapper end">
+                                  <span class="text-Vbpm">98</span>
                                 </div>
                             </div>
                             
@@ -145,7 +148,10 @@
                             <div class="  card-title-wrapper">
                                 <div class="card-title "> 
                                     <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 30px; height: auto;">
-                                    95
+                                    
+                                </div>
+                                <div class=" center ps-3 card-title-wrapper end">
+                                  <span class="text-Vbpm">95</span>
                                 </div>
                             </div>
                             
