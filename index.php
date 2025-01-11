@@ -92,7 +92,7 @@
   
                         
                         <div class="ps-3 card-title-wrapper end">
-                            <div class="ps-3 card-title-wrapper span text-V">45</div>
+                            <div class="ps-3 card-title-wrapper span text-V">95</div>
                             <div class="ps-3 card-title-wrapper span text-normal ">
                                 <div class="status-box">
                                     Normal
@@ -111,12 +111,12 @@
                     <div class="card-body">
                         <div class="card-title-wrapper">
                             <div class="card-title"> 
-                                <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 20px; height: auto;">
+                                <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 30px; height: auto;">
                                 PR(bpm)
                             </div>
                         </div>
                         <div class="ps-3 card-title-wrapper end">
-                            <span class="text-Vbpm">45</span>
+                            <span class="text-Vbpm">90</span>
                             <span class="text-normal">VPM</span>
                         </div>
                     </div>
@@ -131,8 +131,8 @@
                         <div class="card-body1">
                             <div class="card-title-wrapper">
                                 <div class="card-title "> 
-                                    <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 10px; height: auto;">
-                                    PR(bpm)
+                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 10px; height: auto;">
+                                    98
                                 </div>
                             </div>
                             
@@ -145,7 +145,7 @@
                             <div class="card-title-wrapper">
                                 <div class="card-title "> 
                                     <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 10px; height: auto;">
-                                    PR(bpm)
+                                    95
                                 </div>
                             </div>
                             
