@@ -129,8 +129,8 @@
                     <!-- Sales Card 2 -->
                     <div class="card info-card sales-card">
                         <div class="card-body1">
-                            <div class="card-title-wrapper">
-                                <div class=" center card-title "> 
+                            <div class="center card-title-wrapper">
+                                <div class="  card-title "> 
                                     <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 40px; height: auto;">
                                     98
                                 </div>
@@ -140,9 +140,9 @@
                     </div>
 
                     <!-- Sales Card 3 -->
-                    <div class="card info-card sales-card">
+                    <div class=" center card info-card sales-card">
                         <div class="card-body1">
-                            <div class=" center card-title-wrapper">
+                            <div class="  card-title-wrapper">
                                 <div class="card-title "> 
                                     <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 30px; height: auto;">
                                     95
