@@ -126,6 +126,17 @@
             <!-- การ์ดด้านขวา -->
             <div class="col-xxl-4 col-md-4">
                 <div class="d-flex flex-column ">
+                  <!-- หัว -->
+                  <div class="card info-card sales-card">
+                        <div class="card-body1">
+                            <div class="center card-title-wrapper">
+                                <div class=" center ps-3 card-title-wrapper end">
+                                  <span class="text-Vbpm1">yesterday</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
 
                     <!-- Sales Card 2 -->
                     <div class="card info-card sales-card">
