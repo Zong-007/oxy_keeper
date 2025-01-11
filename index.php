@@ -130,9 +130,8 @@
                   <div class="card info-card sales-card">
                         <div class="card-body1">
                             <div class="center card-title-wrapper">
-                                <div class="  card-title "> 
-                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 40px; height: auto;">
-                                    
+                                <div class=" center ps-3 card-title-wrapper end">
+                                  <span class="text-Vbpm">98</span>
                                 </div>
                             </div>
                             
