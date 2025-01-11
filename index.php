@@ -115,7 +115,7 @@
                                 PR(bpm)
                             </div>
                         </div>
-                        <div class="ps-3 card-title-wrapper end">
+                        <div class=" center ps-3 card-title-wrapper end">
                             <span class="text-Vbpm">90</span>
                             <span class="text-normal">VPM</span>
                         </div>
@@ -130,7 +130,7 @@
                     <div class="card info-card sales-card">
                         <div class="card-body1">
                             <div class="card-title-wrapper">
-                                <div class="card-title "> 
+                                <div class=" center card-title "> 
                                     <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 40px; height: auto;">
                                     98
                                 </div>
@@ -142,7 +142,7 @@
                     <!-- Sales Card 3 -->
                     <div class="card info-card sales-card">
                         <div class="card-body1">
-                            <div class="card-title-wrapper">
+                            <div class=" center card-title-wrapper">
                                 <div class="card-title "> 
                                     <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 30px; height: auto;">
                                     95

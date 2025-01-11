@@ -99,3 +99,10 @@
   justify-content: end; /* จัดตำแหน่งไปทางขวาสุด */
   margin-top: 10px; 
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* ปรับให้เต็มความสูงของหน้าจอ */
+}
