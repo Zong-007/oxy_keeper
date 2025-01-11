@@ -131,7 +131,7 @@
                         <div class="card-body1">
                             <div class="card-title-wrapper">
                                 <div class="card-title "> 
-                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 10px; height: auto;">
+                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 40px; height: auto;">
                                     98
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                         <div class="card-body1">
                             <div class="card-title-wrapper">
                                 <div class="card-title "> 
-                                    <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 10px; height: auto;">
+                                    <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 30px; height: auto;">
                                     95
                                 </div>
                             </div>
