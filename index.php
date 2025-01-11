@@ -105,6 +105,19 @@
 
             
             <div class="row">
+              <!-- หัวเรื่อง -->
+            <div class="col-xxl-8 col-md-8">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <div class="card-title-wrapper">
+                            <div class="card-title"> 
+                                <img src="assets/img/PR_logo.png" alt="SPO2 Logo" style="width: 30px; height: auto;">
+                                PR(bpm)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Sales Card 1 -->
             <div class="col-xxl-8 col-md-8">
                 <div class="card info-card sales-card">
@@ -131,7 +144,7 @@
                         <div class="card-body1">
                             <div class="center card-title-wrapper">
                                 <div class="  card-title "> 
-                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 40px; height: auto;">
+                                    <img src="assets/img/SPO2_logo.png" alt="SPO2 Logo" style="width: 30px; height: auto;">
                                     
                                 </div>
                                 <div class=" center ps-3 card-title-wrapper end">
