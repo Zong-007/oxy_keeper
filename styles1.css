@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center; /* จัดกึ่งกลางแนวนอน */
     align-items: center; /* จัดกึ่งกลางแนวตั้ง */
-    height: 50px; /* ปรับความสูงตามต้องการ */
+    height: 100%; /* ปรับความสูงตามต้องการ */
     
   }
   .end{
