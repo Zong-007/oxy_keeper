@@ -41,6 +41,84 @@
 
 <body>
   
+  <script>
+      // ฟังก์ชันที่จะดึงข้อมูลจากฐานข้อมูลทุกๆ 5 วินาที
+      function fetchData() {
+          $.ajax({
+              url: 'sent_data/connect.php', // ไฟล์ PHP ที่ดึงข้อมูลจากฐานข้อมูล
+              method: 'GET',
+              dataType: 'json', // กำหนดให้รับข้อมูลในรูปแบบ JSON
+              success: function(response) {
+                  // ตรวจสอบว่ามีข้อมูลหรือไม่
+                  if (response.error) {
+                      // ถ้ามีข้อผิดพลาดในข้อมูล
+                      $('#BPM').html(0); // แสดง 0 หากไม่มี BPM
+                      $('#Spo2').html(0); // แสดง 0 หากไม่มี Spo2
+                      $('#Date').html(0); // แสดง 0 หากไม่มี Date
+                      $('#BPM_Y').html(0); // แสดง 0 หากไม่มี BPM_Y
+                      $('#Spo2_Y').html(0); // แสดง 0 หากไม่มี Spo2_Y
+                      $('#Date_Y').html(0); // แสดง 0 หากไม่มี Date_Y
+                  } else {
+                      // ถ้ามีข้อมูล, อัปเดตข้อมูลทีละตัว
+                      $('#BPM').html(response.BPM || 0); // ถ้าไม่มี BPM ให้แสดงเป็น 0
+                      $('#Spo2').html(response.Spo2 || 0); // ถ้าไม่มี Spo2 ให้แสดงเป็น 0
+                      $('#Date').html(response.day || 0); // ถ้าไม่มี Date ให้แสดงเป็น 0
+
+                      $('#BPM_Y').html(response.BPM_Y || 0); // ถ้าไม่มี BPM_Y ให้แสดงเป็น 0
+                      $('#Spo2_Y').html(response.Spo2_Y || 0); // ถ้าไม่มี Spo2_Y ให้แสดงเป็น 0
+                      $('#Date_Y').html(response.day_Y || 0); // ถ้าไม่มี Date_Y ให้แสดงเป็น 0
+
+                      // เรียกฟังก์ชันการเปลี่ยนสีหลังจากอัปเดตข้อมูล
+                      changeTextColor(response.Spo2, response.Spo2_Y);
+                  }
+              },
+              error: function() {
+                  // หากเกิดข้อผิดพลาดในการเชื่อมต่อ
+                  $('#BPM').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
+                  $('#Spo2').html("");
+                  $('#Date').html("");
+                  $('#BPM_Y').html("");
+                  $('#Spo2_Y').html("");
+                  $('#Date_Y').html("");
+              }
+          });
+      }
+
+      // ฟังก์ชันในการเปลี่ยนสีข้อความตามค่า Spo2 และ Spo2_Y
+      function changeTextColor(Spo2, Spo2_Y) {
+          // แปลงค่าจาก Spo2 เป็นตัวเลข
+          var spo2Value = parseFloat(Spo2); // แปลงค่าเป็นตัวเลขทศนิยม
+          if (!isNaN(spo2Value)) { // ตรวจสอบว่าเป็นตัวเลขไหม
+              if (spo2Value > 95) {
+                  $('#Spo2').css("color", "#00bf62"); // GREEN
+              } else if (spo2Value >= 90) {
+                  $('#Spo2').css("color", "#febd57"); // YELLOW
+              } else {
+                  $('#Spo2').css("color", "#fe5759"); // RED
+              }
+          }
+
+          // แปลงค่าจาก Spo2_Y เป็นตัวเลข
+          var spo2YValue = parseFloat(Spo2_Y); // แปลงค่าเป็นตัวเลขทศนิยม
+          if (!isNaN(spo2YValue)) { // ตรวจสอบว่าเป็นตัวเลขไหม
+              if (spo2YValue > 95) {
+                  $('#Spo2_Y').css("color", "#00bf62"); // GREEN
+              } else if (spo2YValue >= 90) {
+                  $('#Spo2_Y').css("color", "#febd57"); // YELLOW
+              } else {
+                  $('#Spo2_Y').css("color", "#fe5759"); // RED
+              }
+          }
+      }
+
+      // เรียกใช้ฟังก์ชันทุกๆ 5 วินาที
+      setInterval(fetchData, 5000); // 5000 มิลลิวินาที = 5 วินาที
+
+      // เรียกใช้ครั้งแรกเมื่อโหลดหน้า
+      fetchData();
+  </script>
+
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -49,13 +127,6 @@
         <img src="assets/img/OXY_logo.png" alt="OXY_logo" >
       </a>
     </div><!-- End Logo -->
-    
-    <?php
-      include 'connect.php';
-
-      // แสดง Popup
-      echo "<script>alert('เชื่อมต่อสำเร็จ!');</script>";
-    ?>
     
     <nav class="header-nav ms-auto">
 
@@ -92,11 +163,8 @@
   
                         
                         <div class="ps-3 card-title-wrapper end">
-                            <div class="ps-3 card-title-wrapper span text-V">95</div>
-                            <div class="ps-3 card-title-wrapper span text-normal ">
-                                <div class="status-box">
-                                    Normal
-                                </div>
+                            <div class="ps-3 card-title-wrapper span text-V">
+                              <div id="Spo2"></div>
                             </div>
                         </div>
                     </div>
@@ -116,7 +184,9 @@
                             </div>
                         </div>
                         <div class=" center ps-3 card-title-wrapper end">
-                            <span class="text-Vbpm">90</span>
+                            <span class="text-Vbpm">
+                              <div id="BPM"></div>
+                            </span>
                             <span class="text-normal">VPM</span>
                         </div>
                     </div>
@@ -136,7 +206,9 @@
                                     
                                 </div>
                                 <div class=" center ps-3 card-title-wrapper end">
-                                  <span class="text-Vbpm">98</span>
+                                  <span class="text-Vbpm">
+                                    <div id="Spo2_Y"></div>
+                                  </span>
                                 </div>
                             </div>
                             
@@ -152,7 +224,9 @@
                                     
                                 </div>
                                 <div class=" center ps-3 card-title-wrapper end">
-                                  <span class="text-Vbpm">95</span>
+                                  <span class="text-Vbpm">
+                                    <div id="BPM_Y"></div>
+                                  </span>
                                 </div>
                             </div>
                             
