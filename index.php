@@ -279,11 +279,11 @@
                                 // ตรวจสอบว่ามีข้อมูลหรือไม่
                                 if (response.error) {
                                     // ถ้ามีข้อผิดพลาด
-                                    $('#Spo2').html(0); // แสดง 0 หากไม่มี Spo2
+                                    $('#Spo2_G').html(0); // แสดง 0 หากไม่มี Spo2
                                     $('#Date').html(0); // แสดง 0 หากไม่มี Date
                                 } else {
                                     // ถ้ามีข้อมูล, อัปเดตข้อมูลทีละตัว
-                                    $('#Spo2').html(response.last_7_days[0].Spo2 || 0); // แสดงค่า Spo2 ของวันล่าสุด
+                                    $('#Spo2_G').html(response.last_7_days[0].Spo2_G || 0); // แสดงค่า Spo2 ของวันล่าสุด
                                     $('#Date').html(response.last_7_days[0].day || 0); // แสดงวันที่ของข้อมูลล่าสุด
 
                                     // เรียกฟังก์ชันการอัปเดตกราฟ
@@ -292,7 +292,7 @@
                             },
                             error: function() {
                                 // หากเกิดข้อผิดพลาดในการเชื่อมต่อ
-                                $('#Spo2').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
+                                $('#Spo2_G').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
                                 $('#Date').html("");
                             }
                         });
@@ -306,7 +306,7 @@
                         // เตรียมข้อมูลจาก response
                         last_7_days_data.forEach(function(dayData) {
                             labels.push(dayData.day);  // วันที่
-                            spo2Data.push(dayData.Spo2);  // ค่า Spo2
+                            spo2Data.push(dayData.Spo2_G);  // ค่า Spo2
                         });
 
                         // อัปเดตกราฟ

@@ -62,7 +62,7 @@ while ($row = $result_last_7_days->fetch_assoc()) {
         // เพิ่มข้อมูลสำหรับวันที่มีในฐานข้อมูล
         $last_7_days_data[$formatted_day] = [
             'day' => $formatted_day,
-            'Spo2' => round($row['avg_Spo2'], 2)
+            'Spo2_G' => round($row['avg_Spo2'], 2)
         ];
     }
 }
@@ -72,7 +72,7 @@ foreach ($dates as $date) {
     if (!isset($last_7_days_data[$date])) {
         $last_7_days_data[$date] = [
             'day' => $date,
-            'Spo2' => 0
+            'Spo2_G' => 0
         ];
     }
 }
