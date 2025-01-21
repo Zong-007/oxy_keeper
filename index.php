@@ -272,7 +272,7 @@
                     // ฟังก์ชันที่จะดึงข้อมูลจากฐานข้อมูลทุกๆ 5 วินาที
                     function fetchData() {
                         $.ajax({
-                            url: 'sent_data/connect.php', // ไฟล์ PHP ที่ดึงข้อมูลจากฐานข้อมูล
+                            url: 'sent_data/line_chart.php', // ไฟล์ PHP ที่ดึงข้อมูลจากฐานข้อมูล
                             method: 'GET',
                             dataType: 'json', // กำหนดให้รับข้อมูลในรูปแบบ JSON
                             success: function(response) {

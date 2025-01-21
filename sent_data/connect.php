@@ -44,37 +44,14 @@ $sql_yesterday = "
         AND `day` < CURDATE() - INTERVAL 1 DAY + INTERVAL 12 HOUR
 ";
 
-// คำสั่ง SQL สำหรับดึงข้อมูลย้อนหลัง 7 วัน
-$sql_last_7_days = "
-    SELECT 
-        DATE_FORMAT(`day`, '%Y-%m-%d') AS formatted_day,  // วันที่ของแต่ละวัน
-        AVG(BPM) AS avg_BPM,
-        AVG(Spo2) AS avg_Spo2
-    FROM 
-        oxy_table
-    WHERE 
-        `day` >= CURDATE() - INTERVAL 7 DAY + INTERVAL 12 HOUR  // เริ่มจาก 7 วันที่แล้ว
-        AND `day` < CURDATE() + INTERVAL 12 HOUR  // สิ้นสุดก่อนเวลาปัจจุบัน
-    GROUP BY 
-        DATE_FORMAT(`day`, '%Y-%m-%d')  // แบ่งข้อมูลตามวัน
-    ORDER BY 
-        `day` DESC  // เรียงข้อมูลจากวันที่ล่าสุด
-";
-
 // ดำเนินการคำสั่ง SQL สำหรับวันนี้
 $result_today = $conn->query($sql_today);
 
 // ดำเนินการคำสั่ง SQL สำหรับเมื่อวาน
 $result_yesterday = $conn->query($sql_yesterday);
 
-// ดำเนินการคำสั่ง SQL สำหรับข้อมูลย้อนหลัง 7 วัน
-$result_last_7_days = $conn->query($sql_last_7_days);
-
 // ตัวแปรสำหรับเก็บข้อมูล
 $response = [];
-
-// ตัวแปรสำหรับเก็บข้อมูลย้อนหลัง 7 วัน
-$last_7_days_data = [];
 
 // ตรวจสอบผลลัพธ์ของวันนี้
 if ($result_today->num_rows > 0) {
@@ -99,22 +76,6 @@ if ($result_yesterday->num_rows > 0) {
     $response['Spo2_Y'] = null;
     $response['day_Y'] = null;
 }
-
-// ตรวจสอบผลลัพธ์ของข้อมูลย้อนหลัง 7 วัน
-if ($result_last_7_days->num_rows > 0) {
-    while ($row = $result_last_7_days->fetch_assoc()) {
-        $last_7_days_data[] = [
-            'day' => $row['formatted_day'], 
-            'BPM' => round($row['avg_BPM'], 2),
-            'Spo2' => round($row['avg_Spo2'], 2)
-        ];
-    }
-} else {
-    $last_7_days_data = null;
-}
-
-// เพิ่มข้อมูลย้อนหลัง 7 วันใน response
-$response['last_7_days'] = $last_7_days_data;
 
 // ส่งข้อมูลในรูปแบบ JSON
 echo json_encode($response);
