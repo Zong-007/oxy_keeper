@@ -25,7 +25,7 @@ if (isset($_GET['BPM']) && isset($_GET['Spo2'])) {
     $timestamp = date("Y-m-d H:i:s"); // เวลาปัจจุบัน
 
     // ใช้ prepared statement
-    $stmt = $conn->prepare("INSERT INTO oxy_table (BPM, Spo2, Date) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO oxy_table (BPM, Spo2, day) VALUES (?, ?, ?)");
     $stmt->bind_param("iis", $bpm, $spo2, $timestamp);
 
     // ดำเนินการเพิ่มข้อมูล
