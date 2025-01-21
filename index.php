@@ -269,8 +269,6 @@
                   <div id="reportsChart"></div>
 
                   <script>
-                    var chart;  // ตัวแปรสำหรับเก็บกราฟ
-
                     // ฟังก์ชันที่จะดึงข้อมูลจากฐานข้อมูลทุกๆ 5 วินาที
                     function fetchData() {
                         $.ajax({
@@ -300,8 +298,8 @@
                         });
                     }
 
-                    // ฟังก์ชันสร้างกราฟครั้งแรก
-                    function createChart(last_7_days_data) {
+                    // ฟังก์ชันอัปเดตกราฟ
+                    function updateChart(last_7_days_data) {
                         var labels = [];  // วันที่
                         var spo2Data = [];  // ค่า Spo2
 
@@ -311,7 +309,7 @@
                             spo2Data.push(dayData.Spo2_G);  // ค่า Spo2
                         });
 
-                        // กำหนดค่า options สำหรับกราฟ
+                        // อัปเดตกราฟ
                         var options = {
                             series: [{
                                 name: 'Spo2',
@@ -355,43 +353,12 @@
                             }
                         };
 
-                        // สร้างกราฟใหม่และเก็บไว้ในตัวแปร chart
-                        chart = new ApexCharts(document.querySelector("#reportsChart"), options);
-                        chart.render();
-                    }
-
-                    // ฟังก์ชันอัปเดตกราฟ
-                    function updateChart(last_7_days_data) {
-                        if (chart) {  // ตรวจสอบว่า chart ถูกสร้างหรือยัง
-                            var labels = [];  // วันที่
-                            var spo2Data = [];  // ค่า Spo2
-
-                            // เตรียมข้อมูลจาก response
-                            last_7_days_data.forEach(function(dayData) {
-                                labels.push(dayData.day);  // วันที่
-                                spo2Data.push(dayData.Spo2_G);  // ค่า Spo2
-                            });
-
-                            // อัปเดตข้อมูลในกราฟที่มีอยู่
-                            chart.updateOptions({
-                                series: [{
-                                    name: 'Spo2',
-                                    data: spo2Data,  // ใช้ค่า Spo2 จากข้อมูลใหม่
-                                }],
-                                xaxis: {
-                                    categories: labels,  // อัปเดตวันที่
-                                }
-                            });
-                        }
+                        // สร้างกราฟใหม่หรืออัปเดตกราฟเดิม
+                        new ApexCharts(document.querySelector("#reportsChart"), options).render();
                     }
 
                     // เรียกฟังก์ชัน fetchData ทุก 5 วินาที
                     setInterval(fetchData, 5000);  // ทุก 5 วินาที
-
-                    // สร้างกราฟครั้งแรกเมื่อโหลดหน้า
-                    $(document).ready(function() {
-                        fetchData();  // ดึงข้อมูลทันทีเมื่อโหลดหน้า
-                    });
                 </script>
 
                   <!-- End Line Chart -->
