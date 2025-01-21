@@ -269,97 +269,128 @@
                   <div id="reportsChart"></div>
 
                   <script>
-                    // ฟังก์ชันที่จะดึงข้อมูลจากฐานข้อมูลทุกๆ 5 วินาที
-                    function fetchData() {
-                        $.ajax({
-                            url: 'sent_data/line_chart.php', // ไฟล์ PHP ที่ดึงข้อมูลจากฐานข้อมูล
-                            method: 'GET',
-                            dataType: 'json', // กำหนดให้รับข้อมูลในรูปแบบ JSON
-                            success: function(response) {
-                                // ตรวจสอบว่ามีข้อมูลหรือไม่
-                                if (response.error) {
-                                    // ถ้ามีข้อผิดพลาด
-                                    $('#Spo2_G').html(0); // แสดง 0 หากไม่มี Spo2
-                                    $('#Date').html(0); // แสดง 0 หากไม่มี Date
-                                } else {
-                                    // ถ้ามีข้อมูล, อัปเดตข้อมูลทีละตัว
-                                    $('#Spo2_G').html(response.last_7_days[0].Spo2_G || 0); // แสดงค่า Spo2 ของวันล่าสุด
-                                    $('#Date').html(response.last_7_days[0].day || 0); // แสดงวันที่ของข้อมูลล่าสุด
+                      var chart;  // ตัวแปรสำหรับเก็บกราฟ
 
-                                    // เรียกฟังก์ชันการอัปเดตกราฟ
-                                    updateChart(response.last_7_days);
-                                }
-                            },
-                            error: function() {
-                                // หากเกิดข้อผิดพลาดในการเชื่อมต่อ
-                                $('#Spo2_G').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
-                                $('#Date').html("");
-                            }
-                        });
-                    }
+                      // ฟังก์ชันที่จะดึงข้อมูลจากฐานข้อมูลทุกๆ 5 วินาที
+                      function fetchData() {
+                          $.ajax({
+                              url: 'sent_data/line_chart.php', // ไฟล์ PHP ที่ดึงข้อมูลจากฐานข้อมูล
+                              method: 'GET',
+                              dataType: 'json', // กำหนดให้รับข้อมูลในรูปแบบ JSON
+                              success: function(response) {
+                                  // ตรวจสอบว่ามีข้อมูลหรือไม่
+                                  if (response.error) {
+                                      // ถ้ามีข้อผิดพลาด
+                                      $('#Spo2_G').html(0); // แสดง 0 หากไม่มี Spo2
+                                      $('#Date').html(0); // แสดง 0 หากไม่มี Date
+                                  } else {
+                                      // ถ้ามีข้อมูล, อัปเดตข้อมูลทีละตัว
+                                      $('#Spo2_G').html(response.last_7_days[0].Spo2_G || 0); // แสดงค่า Spo2 ของวันล่าสุด
+                                      $('#Date').html(response.last_7_days[0].day || 0); // แสดงวันที่ของข้อมูลล่าสุด
 
-                    // ฟังก์ชันอัปเดตกราฟ
-                    function updateChart(last_7_days_data) {
-                        var labels = [];  // วันที่
-                        var spo2Data = [];  // ค่า Spo2
+                                      // เรียกฟังก์ชันการอัปเดตกราฟ
+                                      updateChart(response.last_7_days);
+                                  }
+                              },
+                              error: function() {
+                                  // หากเกิดข้อผิดพลาดในการเชื่อมต่อ
+                                  $('#Spo2_G').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
+                                  $('#Date').html("");
+                              }
+                          });
+                      }
 
-                        // เตรียมข้อมูลจาก response
-                        last_7_days_data.forEach(function(dayData) {
-                            labels.push(dayData.day);  // วันที่
-                            spo2Data.push(dayData.Spo2_G);  // ค่า Spo2
-                        });
+                      // ฟังก์ชันสร้างกราฟครั้งแรก
+                      function createChart(last_7_days_data) {
+                          var labels = [];  // วันที่
+                          var spo2Data = [];  // ค่า Spo2
 
-                        // อัปเดตกราฟ
-                        var options = {
-                            series: [{
-                                name: 'Spo2',
-                                data: spo2Data,  // ใช้ค่า Spo2 จากข้อมูล
-                            }],
-                            chart: {
-                                height: 350,
-                                type: 'area',
-                                toolbar: {
-                                    show: false
-                                },
-                            },
-                            markers: {
-                                size: 4
-                            },
-                            colors: ['#e93400'],
-                            fill: {
-                                type: "gradient",
-                                gradient: {
-                                    shadeIntensity: 1,
-                                    opacityFrom: 0.3,
-                                    opacityTo: 0.4,
-                                    stops: [0, 90, 100]
-                                }
-                            },
-                            dataLabels: {
-                                enabled: false
-                            },
-                            stroke: {
-                                curve: 'smooth',
-                                width: 2
-                            },
-                            xaxis: {
-                                type: 'category',
-                                categories: labels,  // วันที่ที่ได้รับจากข้อมูล
-                            },
-                            tooltip: {
-                                x: {
-                                    format: 'dd/MM/yy'
-                                },
-                            }
-                        };
+                          // เตรียมข้อมูลจาก response
+                          last_7_days_data.forEach(function(dayData) {
+                              labels.push(dayData.day);  // วันที่
+                              spo2Data.push(dayData.Spo2_G);  // ค่า Spo2
+                          });
 
-                        // สร้างกราฟใหม่หรืออัปเดตกราฟเดิม
-                        new ApexCharts(document.querySelector("#reportsChart"), options).render();
-                    }
+                          // กำหนดค่า options สำหรับกราฟ
+                          var options = {
+                              series: [{
+                                  name: 'Spo2',
+                                  data: spo2Data,  // ใช้ค่า Spo2 จากข้อมูล
+                              }],
+                              chart: {
+                                  height: 350,
+                                  type: 'area',
+                                  toolbar: {
+                                      show: false
+                                  },
+                              },
+                              markers: {
+                                  size: 4
+                              },
+                              colors: ['#e93400'],
+                              fill: {
+                                  type: "gradient",
+                                  gradient: {
+                                      shadeIntensity: 1,
+                                      opacityFrom: 0.3,
+                                      opacityTo: 0.4,
+                                      stops: [0, 90, 100]
+                                  }
+                              },
+                              dataLabels: {
+                                  enabled: false
+                              },
+                              stroke: {
+                                  curve: 'smooth',
+                                  width: 2
+                              },
+                              xaxis: {
+                                  type: 'category',
+                                  categories: labels,  // วันที่ที่ได้รับจากข้อมูล
+                              },
+                              tooltip: {
+                                  x: {
+                                      format: 'dd/MM/yy'
+                                  },
+                              }
+                          };
 
-                    // เรียกฟังก์ชัน fetchData ทุก 5 วินาที
-                    setInterval(fetchData, 5000);  // ทุก 5 วินาที
-                </script>
+                          // สร้างกราฟใหม่และเก็บไว้ในตัวแปร chart
+                          chart = new ApexCharts(document.querySelector("#reportsChart"), options);
+                          chart.render();
+                      }
+
+                      // ฟังก์ชันอัปเดตกราฟ
+                      function updateChart(last_7_days_data) {
+                          var labels = [];  // วันที่
+                          var spo2Data = [];  // ค่า Spo2
+
+                          // เตรียมข้อมูลจาก response
+                          last_7_days_data.forEach(function(dayData) {
+                              labels.push(dayData.day);  // วันที่
+                              spo2Data.push(dayData.Spo2_G);  // ค่า Spo2
+                          });
+
+                          // อัปเดตข้อมูลในกราฟที่มีอยู่
+                          chart.updateOptions({
+                              series: [{
+                                  name: 'Spo2',
+                                  data: spo2Data,  // ใช้ค่า Spo2 จากข้อมูลใหม่
+                              }],
+                              xaxis: {
+                                  categories: labels,  // อัปเดตวันที่
+                              }
+                          });
+                      }
+
+                      // เรียกฟังก์ชัน fetchData ทุก 5 วินาที
+                      setInterval(fetchData, 5000);  // ทุก 5 วินาที
+
+                      // สร้างกราฟครั้งแรกเมื่อโหลดหน้า
+                      $(document).ready(function() {
+                          fetchData();  // ดึงข้อมูลทันทีเมื่อโหลดหน้า
+                      });
+                  </script>
 
                   <!-- End Line Chart -->
 
