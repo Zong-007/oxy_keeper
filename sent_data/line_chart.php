@@ -22,7 +22,6 @@ if ($conn->connect_error) {
 $sql_last_7_days = "
     SELECT 
         DATE(`day`) AS formatted_day,  // แปลงจาก DATETIME เป็น วันที่
-        AVG(BPM) AS avg_BPM,
         AVG(Spo2) AS avg_Spo2
     FROM 
         oxy_table
@@ -44,21 +43,40 @@ $response = [];
 // ตัวแปรสำหรับเก็บข้อมูลย้อนหลัง 7 วัน
 $last_7_days_data = [];
 
+// สร้าง array สำหรับวันที่ย้อนหลัง 7 วัน (จากวันนี้ไป 7 วัน)
+$dates = [];
+for ($i = 0; $i < 7; $i++) {
+    $dates[] = date('Y-m-d', strtotime('-' . $i . ' days'));
+}
+
 // ตรวจสอบผลลัพธ์ของข้อมูลย้อนหลัง 7 วัน
-if ($result_last_7_days->num_rows > 0) {
-    while ($row = $result_last_7_days->fetch_assoc()) {
-        $last_7_days_data[] = [
-            'day' => $row['formatted_day'], 
-            'BPM' => round($row['avg_BPM'], 2),
+while ($row = $result_last_7_days->fetch_assoc()) {
+    // เช็คว่า "formatted_day" อยู่ใน $dates หรือไม่
+    $formatted_day = $row['formatted_day'];
+    if (in_array($formatted_day, $dates)) {
+        // เพิ่มข้อมูลสำหรับวันที่มีในฐานข้อมูล
+        $last_7_days_data[$formatted_day] = [
+            'day' => $formatted_day,
             'Spo2' => round($row['avg_Spo2'], 2)
         ];
     }
-} else {
-    $last_7_days_data = null;
 }
 
-// เพิ่มข้อมูลย้อนหลัง 7 วันใน response
-$response['last_7_days'] = $last_7_days_data;
+// เพิ่มข้อมูลสำหรับวันที่ไม่มีข้อมูลจากฐานข้อมูลเป็นค่า 0
+foreach ($dates as $date) {
+    if (!isset($last_7_days_data[$date])) {
+        $last_7_days_data[$date] = [
+            'day' => $date,
+            'Spo2' => 0
+        ];
+    }
+}
+
+// เรียงข้อมูลจากวันที่ล่าสุด
+ksort($last_7_days_data);
+
+// เพิ่มข้อมูลย้อน 7 วันใน response
+$response['last_7_days'] = array_values($last_7_days_data);
 
 // ส่งข้อมูลในรูปแบบ JSON
 echo json_encode($response);

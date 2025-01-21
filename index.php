@@ -279,14 +279,12 @@
                                 // ตรวจสอบว่ามีข้อมูลหรือไม่
                                 if (response.error) {
                                     // ถ้ามีข้อผิดพลาด
-                                    $('#BPM').html(0); // แสดง 0 หากไม่มี BPM
                                     $('#Spo2').html(0); // แสดง 0 หากไม่มี Spo2
                                     $('#Date').html(0); // แสดง 0 หากไม่มี Date
                                 } else {
                                     // ถ้ามีข้อมูล, อัปเดตข้อมูลทีละตัว
-                                    $('#BPM').html(response.BPM || 0); // ถ้าไม่มี BPM ให้แสดงเป็น 0
-                                    $('#Spo2').html(response.Spo2 || 0); // ถ้าไม่มี Spo2 ให้แสดงเป็น 0
-                                    $('#Date').html(response.day || 0); // ถ้าไม่มี Date ให้แสดงเป็น 0
+                                    $('#Spo2').html(response.last_7_days[0].Spo2 || 0); // แสดงค่า Spo2 ของวันล่าสุด
+                                    $('#Date').html(response.last_7_days[0].day || 0); // แสดงวันที่ของข้อมูลล่าสุด
 
                                     // เรียกฟังก์ชันการอัปเดตกราฟ
                                     updateChart(response.last_7_days);
@@ -294,8 +292,7 @@
                             },
                             error: function() {
                                 // หากเกิดข้อผิดพลาดในการเชื่อมต่อ
-                                $('#BPM').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
-                                $('#Spo2').html("");
+                                $('#Spo2').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
                                 $('#Date').html("");
                             }
                         });
@@ -359,7 +356,11 @@
                         // สร้างกราฟใหม่หรืออัปเดตกราฟเดิม
                         new ApexCharts(document.querySelector("#reportsChart"), options).render();
                     }
-                  </script>
+
+                    // เรียกฟังก์ชัน fetchData ทุก 5 วินาที
+                    setInterval(fetchData, 5000);  // ทุก 5 วินาที
+                </script>
+
                   <!-- End Line Chart -->
 
                 </div>
