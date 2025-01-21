@@ -325,7 +325,7 @@
                             markers: {
                                 size: 4
                             },
-                            colors: ['#4154f1'],
+                            colors: ['#e93400'],
                             fill: {
                                 type: "gradient",
                                 gradient: {
