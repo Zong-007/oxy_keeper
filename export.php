@@ -25,10 +25,10 @@ if (!$output) {
 }
 
 // เขียนหัวข้อคอลัมน์
-fputcsv($output, array('BPM', 'Spo2', 'Date', 'Status')); // เปลี่ยนชื่อคอลัมน์ตามฐานข้อมูลของคุณ
+fputcsv($output, array('BPM', 'Spo2', 'day', 'Status')); // เปลี่ยนชื่อคอลัมน์ตามฐานข้อมูลของคุณ
 
 // ดึงข้อมูลจากฐานข้อมูล
-$sql = "SELECT BPM, Spo2, Date, Status FROM oxy_table"; // แก้ไขตามตารางในฐานข้อมูลของคุณ
+$sql = "SELECT BPM, Spo2, day, Status FROM oxy_table"; // แก้ไขตามตารางในฐานข้อมูลของคุณ
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
