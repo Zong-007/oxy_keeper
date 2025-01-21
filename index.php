@@ -269,50 +269,96 @@
                   <div id="reportsChart"></div>
 
                   <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Spo2',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
-                    });
+                    // ฟังก์ชันที่จะดึงข้อมูลจากฐานข้อมูลทุกๆ 5 วินาที
+                    function fetchData() {
+                        $.ajax({
+                            url: 'sent_data/connect.php', // ไฟล์ PHP ที่ดึงข้อมูลจากฐานข้อมูล
+                            method: 'GET',
+                            dataType: 'json', // กำหนดให้รับข้อมูลในรูปแบบ JSON
+                            success: function(response) {
+                                // ตรวจสอบว่ามีข้อมูลหรือไม่
+                                if (response.error) {
+                                    // ถ้ามีข้อผิดพลาด
+                                    $('#BPM').html(0); // แสดง 0 หากไม่มี BPM
+                                    $('#Spo2').html(0); // แสดง 0 หากไม่มี Spo2
+                                    $('#Date').html(0); // แสดง 0 หากไม่มี Date
+                                } else {
+                                    // ถ้ามีข้อมูล, อัปเดตข้อมูลทีละตัว
+                                    $('#BPM').html(response.BPM || 0); // ถ้าไม่มี BPM ให้แสดงเป็น 0
+                                    $('#Spo2').html(response.Spo2 || 0); // ถ้าไม่มี Spo2 ให้แสดงเป็น 0
+                                    $('#Date').html(response.day || 0); // ถ้าไม่มี Date ให้แสดงเป็น 0
+
+                                    // เรียกฟังก์ชันการอัปเดตกราฟ
+                                    updateChart(response.last_7_days);
+                                }
+                            },
+                            error: function() {
+                                // หากเกิดข้อผิดพลาดในการเชื่อมต่อ
+                                $('#BPM').html("เกิดข้อผิดพลาดในการดึงข้อมูล");
+                                $('#Spo2').html("");
+                                $('#Date').html("");
+                            }
+                        });
+                    }
+
+                    // ฟังก์ชันอัปเดตกราฟ
+                    function updateChart(last_7_days_data) {
+                        var labels = [];  // วันที่
+                        var spo2Data = [];  // ค่า Spo2
+
+                        // เตรียมข้อมูลจาก response
+                        last_7_days_data.forEach(function(dayData) {
+                            labels.push(dayData.day);  // วันที่
+                            spo2Data.push(dayData.Spo2);  // ค่า Spo2
+                        });
+
+                        // อัปเดตกราฟ
+                        var options = {
+                            series: [{
+                                name: 'Spo2',
+                                data: spo2Data,  // ใช้ค่า Spo2 จากข้อมูล
+                            }],
+                            chart: {
+                                height: 350,
+                                type: 'area',
+                                toolbar: {
+                                    show: false
+                                },
+                            },
+                            markers: {
+                                size: 4
+                            },
+                            colors: ['#4154f1'],
+                            fill: {
+                                type: "gradient",
+                                gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100]
+                                }
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            stroke: {
+                                curve: 'smooth',
+                                width: 2
+                            },
+                            xaxis: {
+                                type: 'category',
+                                categories: labels,  // วันที่ที่ได้รับจากข้อมูล
+                            },
+                            tooltip: {
+                                x: {
+                                    format: 'dd/MM/yy'
+                                },
+                            }
+                        };
+
+                        // สร้างกราฟใหม่หรืออัปเดตกราฟเดิม
+                        new ApexCharts(document.querySelector("#reportsChart"), options).render();
+                    }
                   </script>
                   <!-- End Line Chart -->
 
