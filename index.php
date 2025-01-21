@@ -92,11 +92,15 @@
           var spo2Value = parseFloat(Spo2); // แปลงค่าเป็นตัวเลขทศนิยม
           if (!isNaN(spo2Value)) { // ตรวจสอบว่าเป็นตัวเลขไหม
               if (spo2Value > 95) {
-                  $('#Spo2').css("color", "#00bf62"); // GREEN
+                  $('#Spo2').css("color", "#addb4b"); 
               } else if (spo2Value >= 90) {
-                  $('#Spo2').css("color", "#febd57"); // YELLOW
+                  $('#Spo2').css("color", "#f5dd65"); 
+              } else if (spo2Value >= 85) {
+                  $('#Spo2').css("color", "#eea123"); 
+              } else if (spo2Value >= 80) {
+                  $('#Spo2').css("color", "#eb6a00"); 
               } else {
-                  $('#Spo2').css("color", "#fe5759"); // RED
+                  $('#Spo2').css("color", "#e93400"); 
               }
           }
 
@@ -104,11 +108,15 @@
           var spo2YValue = parseFloat(Spo2_Y); // แปลงค่าเป็นตัวเลขทศนิยม
           if (!isNaN(spo2YValue)) { // ตรวจสอบว่าเป็นตัวเลขไหม
               if (spo2YValue > 95) {
-                  $('#Spo2_Y').css("color", "#00bf62"); // GREEN
+                  $('#Spo2_Y').css("color", "#addb4b"); 
               } else if (spo2YValue >= 90) {
-                  $('#Spo2_Y').css("color", "#febd57"); // YELLOW
+                  $('#Spo2_Y').css("color", "#f5dd65"); 
+              } else if (spo2YValue >= 85) {
+                  $('#Spo2_Y').css("color", "#eea123"); 
+              } else if (spo2YValue >= 80) {
+                  $('#Spo2_Y').css("color", "#eb6a00"); 
               } else {
-                  $('#Spo2_Y').css("color", "#fe5759"); // RED
+                  $('#Spo2_Y').css("color", "#e93400"); 
               }
           }
       }
@@ -252,7 +260,9 @@
 
                   <!-- Export Data -->
                   <form action="export.php" method="post" class="form-right" >
-                    <button class="button" type="submit">Export Data</button>
+                    <button class="button" type="submit">
+                      <img src="assets/img/download.png" alt="Export Data" style="width: 40px; height: 40px;">
+                    </button>
                   </form>
 
                   <!-- Line Chart -->
