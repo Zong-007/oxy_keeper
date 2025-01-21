@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 // คำสั่ง SQL สำหรับดึงข้อมูลย้อนหลัง 7 วัน
 $sql_last_7_days = "
     SELECT 
-        DATE_FORMAT(`day`, '%Y-%m-%d') AS formatted_day,  // วันที่ของแต่ละวัน
+        DATE(`day`) AS formatted_day,  // แปลงจาก DATETIME เป็น วันที่
         AVG(BPM) AS avg_BPM,
         AVG(Spo2) AS avg_Spo2
     FROM 
@@ -30,7 +30,7 @@ $sql_last_7_days = "
         `day` >= CURDATE() - INTERVAL 7 DAY + INTERVAL 12 HOUR  // เริ่มจาก 7 วันที่แล้ว
         AND `day` < CURDATE() + INTERVAL 12 HOUR  // สิ้นสุดก่อนเวลาปัจจุบัน
     GROUP BY 
-        DATE_FORMAT(`day`, '%Y-%m-%d')  // แบ่งข้อมูลตามวัน
+        DATE(`day`)  // แบ่งข้อมูลตามวันที่
     ORDER BY 
         `day` DESC  // เรียงข้อมูลจากวันที่ล่าสุด
 ";
