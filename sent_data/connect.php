@@ -21,14 +21,17 @@ if ($conn->connect_error) {
 // คำสั่ง SQL สำหรับคำนวณค่าเฉลี่ย BPM และ Spo2 ของวันนี้
 $sql_today = "
     SELECT 
-        AVG(BPM) AS avg_BPM,
-        AVG(Spo2) AS avg_Spo2,
-        DATE_FORMAT(CURDATE(), '%Y-%m-%d') AS formatted_day
+        BPM,
+        Spo2,
+        DATE_FORMAT(`day`, '%Y-%m-%d') AS formatted_day
     FROM 
         oxy_table
     WHERE 
         `day` >= CURDATE() - INTERVAL 1 DAY + INTERVAL 12 HOUR
         AND `day` < CURDATE() + INTERVAL 12 HOUR
+    ORDER BY 
+        `ID` DESC
+    LIMIT 1
 ";
 
 // คำสั่ง SQL สำหรับคำนวณค่าเฉลี่ย BPM และ Spo2 ของเมื่อวาน
