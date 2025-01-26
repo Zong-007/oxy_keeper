@@ -58,8 +58,8 @@ $response = [];
 // ตรวจสอบผลลัพธ์ของวันนี้
 if ($result_today->num_rows > 0) {
     $row_today = $result_today->fetch_assoc();
-    $response['BPM'] = round($row_today['avg_BPM'], 2); // ค่าเฉลี่ย BPM
-    $response['Spo2'] = round($row_today['avg_Spo2'], 2); // ค่าเฉลี่ย Spo2
+    $response['BPM'] = round($row_today['BPM'], 2); // ค่าเฉลี่ย BPM
+    $response['Spo2'] = round($row_today['Spo2'], 2); // ค่าเฉลี่ย Spo2
     $response['day'] = $row_today['formatted_day']; // วันที่
 } else {
     $response['BPM'] = null;
